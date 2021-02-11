@@ -1,0 +1,21 @@
+.header-wrapper {
+  display: flex;
+  background-color: rgb(107, 180, 34);
+  justify-content: space-between;
+  padding: 20px 40px;
+
+  .logo-app {
+    color: white;
+    font-weight: 700;
+    font-size: 24px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .menu-item {
+    color: white;
+    font-size: 18px;
+    margin: 0;
+    text-decoration: underline;
+  }
+}
