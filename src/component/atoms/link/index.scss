@@ -1,0 +1,10 @@
+.link-container {
+  text-align: center;
+  margin-top: 50px;
+  .link-text {
+    font-size: 14px;
+    text-decoration: underline;
+    color: darkgrey;
+    cursor: pointer;
+  }
+}
