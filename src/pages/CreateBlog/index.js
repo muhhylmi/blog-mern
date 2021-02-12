@@ -1,9 +1,17 @@
 import React from "react";
+import { Button, Input, TextArea, Upload } from "../../component";
+import "./index.scss";
 
 const CreateBlog = () => {
   return (
-    <div>
-      <p>Halaman Create Blog</p>
+    <div className="create-blog-container">
+      <p className="title">Create New Post</p>
+      <Input label="Judul Post" />
+      <Upload />
+      <TextArea />
+      <div className="btn-container">
+        <Button label="Save" />
+      </div>
     </div>
   );
 };

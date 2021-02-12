@@ -1,0 +1,21 @@
+.content-wrapper {
+  padding: 20px;
+}
+.create-wrapper {
+  width: 200px;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.blog-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.pagination {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
