@@ -1,11 +1,17 @@
 import React from "react";
 import "./index.scss";
+import { useHistory } from "react-router-dom";
 
 const Header = () => {
+  const history = useHistory();
   return (
     <div className="header-wrapper">
-      <p className="logo-app">Blog</p>
-      <p className="menu-item">Logout</p>
+      <p className="logo-app" onClick={() => history.push("/")}>
+        Blog
+      </p>
+      <p className="menu-item" onClick={() => history.push("/login")}>
+        Logout
+      </p>
     </div>
   );
 };

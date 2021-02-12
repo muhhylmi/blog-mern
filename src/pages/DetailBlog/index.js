@@ -1,7 +1,11 @@
 import React from "react";
 import { RegisterBg } from "../../assets";
 import "./index.scss";
+import { Link } from "../../component";
+import { useHistory } from "react-router-dom";
+
 const DetailBlog = () => {
+  const history = useHistory();
   return (
     <div className="detail-blog-container">
       <img src={RegisterBg} alt="thumb-img" className="detail-thumb" />
@@ -18,6 +22,7 @@ const DetailBlog = () => {
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
       </p>
+      <Link label="Kembali Ke Home" onClick={() => history.push("/")} />
     </div>
   );
 };
