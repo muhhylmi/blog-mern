@@ -1,20 +1,29 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { BlogItem, Button } from "../../component";
 import "./home.scss";
 
 const Home = () => {
-  const [dataBlog, setdataBlog] = useState([]);
+  // const [dataBlog, setdataBlog] = useState([]);
+  const { dataBlogs, name } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    // setTimeout(() => {
+    //   dispatch({ type: "UPDATE_NAME" });
+    // }, 3000);
+
     axios
       .get("http://localhost:4000/v1/blog/posts")
       .then((result) => {
         const responseAPI = result.data;
-        setdataBlog(responseAPI.data);
+        // setdataBlog(responseAPI.data);
+        dispatch({ type: "UPDATE_DATA_BLOG", payload: responseAPI.data });
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   const history = useHistory();
   return (
@@ -26,7 +35,7 @@ const Home = () => {
         />
       </div>
       <div className="blog-wrapper">
-        {dataBlog.map((blog) => {
+        {dataBlogs.map((blog) => {
           return (
             <BlogItem
               key={blog._id}
