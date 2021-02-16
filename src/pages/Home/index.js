@@ -1,8 +1,8 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { BlogItem, Button } from "../../component";
+import { setDataBlog } from "../../config/redux/action";
 import "./home.scss";
 
 const Home = () => {
@@ -10,14 +10,8 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/v1/blog/posts")
-      .then((result) => {
-        const responseAPI = result.data;
-        dispatch({ type: "UPDATE_DATA_BLOG", payload: responseAPI.data });
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    dispatch(setDataBlog());
+  }, [dispatch]);
 
   const history = useHistory();
   return (
