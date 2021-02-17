@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { BlogItem, Button } from "../../component";
@@ -6,14 +6,22 @@ import { setDataBlog } from "../../config/redux/action";
 import "./home.scss";
 
 const Home = () => {
-  const { dataBlogs } = useSelector((state) => state.homeReducer);
+  const [counter, setCounter] = useState(1);
+  const { dataBlogs, page } = useSelector((state) => state.homeReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setDataBlog());
-  }, [dispatch]);
+    dispatch(setDataBlog(counter));
+  }, [counter, dispatch]);
 
   const history = useHistory();
+  const previous = () => {
+    setCounter(counter === 1 ? 1 : counter - 1);
+  };
+  const next = () => {
+    setCounter(counter === 3 ? 3 : counter + 1);
+  };
+
   return (
     <div className="content-wrapper">
       <div className="create-wrapper">
@@ -37,9 +45,13 @@ const Home = () => {
         })}
       </div>
       <div className="pagination">
-        <Button label="Previous" />
+        <Button label="Previous" onClick={previous} />
         <div style={{ margin: "20px" }}></div>
-        <Button label="Next" />
+        <p className="text-page">
+          {page.currentPage} / {page.totalPage}
+        </p>
+        <div style={{ margin: "20px" }}></div>
+        <Button label="Next" onClick={next} />
       </div>
     </div>
   );
