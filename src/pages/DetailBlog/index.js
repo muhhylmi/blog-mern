@@ -1,30 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RegisterBg } from "../../assets";
 import "./index.scss";
 import { Link } from "../../component";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
+import axios from "axios";
 
-const DetailBlog = () => {
+const DetailBlog = (props) => {
+  const [data, setData] = useState({});
   const history = useHistory();
-  return (
-    <div className="detail-blog-container">
-      <img src={RegisterBg} alt="thumb-img" className="detail-thumb" />
-      <p className="detail-title">Title Blog</p>
-      <p className="detail-author">Date - Author</p>
-      <p className="detail-content">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </p>
-      <Link label="Kembali Ke Home" onClick={() => history.push("/")} />
-    </div>
-  );
+
+  useEffect(() => {
+    const id = props.match.params.id;
+    axios
+      .get(`http://localhost:4000/v1/blog/post/${id}`)
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  if (data.author) {
+    return (
+      <div className="detail-blog-container">
+        <img
+          src={`http://localhost:4000/${data.image}`}
+          alt="thumb-img"
+          className="detail-thumb"
+        />
+        <p className="detail-title">{data.title}</p>
+        <p className="detail-author">
+          {data.author.name} - {data.createdAt}
+        </p>
+        <p className="detail-content">{data.body}</p>
+        <Link label="Kembali Ke Home" onClick={() => history.push("/")} />
+      </div>
+    );
+  }
+  return <p>Loading ....</p>;
 };
 
-export default DetailBlog;
+export default withRouter(DetailBlog);

@@ -3,7 +3,7 @@ import axios from "axios";
 export const setDataBlog = (page) => {
   return (dispatch) => {
     axios
-      .get(`http://localhost:4000/v1/blog/posts?page=${page}&perPage=1`)
+      .get(`http://localhost:4000/v1/blog/posts?page=${page}&perPage=2`)
       .then((result) => {
         const responseAPI = result.data;
         dispatch({ type: "UPDATE_DATA_BLOG", payload: responseAPI.data });

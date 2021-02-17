@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Login, Register, MainApp } from "../../pages";
+import DetailBlog from "../../pages/DetailBlog";
 
 const Routes = () => {
   return (

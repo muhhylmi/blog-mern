@@ -40,6 +40,7 @@ const Home = () => {
               body={blog.body}
               author={blog.author.name}
               date={blog.createdAt}
+              _id={blog._id}
             />
           );
         })}

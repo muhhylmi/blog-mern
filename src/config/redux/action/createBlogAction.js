@@ -28,3 +28,24 @@ export const postDataBlog = (form, history, setSukses) => {
     })
     .catch((err) => console.log("error", err));
 };
+
+export const updateBlogPost = (form, history, setSukses, id) => {
+  const data = new FormData();
+  data.append("title", form.title);
+  data.append("body", form.body);
+  data.append("image", form.image);
+
+  axios
+    .put(`http://localhost:4000/v1/blog/post/${id}`, data, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    })
+    .then((res) => {
+      setSukses(true);
+      setTimeout(() => {
+        history.push("/");
+      }, 3000);
+    })
+    .catch((err) => console.log("error", err));
+};
