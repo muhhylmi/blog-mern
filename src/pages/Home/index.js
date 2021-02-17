@@ -19,7 +19,7 @@ const Home = () => {
     setCounter(counter === 1 ? 1 : counter - 1);
   };
   const next = () => {
-    setCounter(counter === 3 ? 3 : counter + 1);
+    setCounter(counter === page.totalPage ? page.totalPage : counter + 1);
   };
 
   return (

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { LoginBg } from "../../../assets";
 import "./index.scss";
 
-const Upload = ({ ...rest }) => {
+const Upload = ({ img, ...rest }) => {
   return (
     <div className="upload-container">
-      <img src={LoginBg} alt="preview" className="preview" />
+      {img && <img src={img} alt="preview" className="preview" />}
       <input type="file" {...rest} />
     </div>
   );
