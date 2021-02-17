@@ -1,46 +1,43 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Input, Link, TextArea, Upload } from "../../component";
+import {
+  postDataBlog,
+  setForm,
+  setImgPreview,
+} from "../../config/redux/action";
 import "./index.scss";
 
 const CreateBlog = () => {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [img, setImg] = useState("");
-  const [imgPreview, setImgPreview] = useState("");
+  const { form, imgPreview } = useSelector((state) => state.createBlogReducer);
+  const { title, body, image } = form;
+  const dispatch = useDispatch();
+
+  // const [title, setTitle] = useState("");
+  // const [body, setBody] = useState("");
+  // const [img, setImg] = useState("");
+  // const [imgPreview, setImgPreview] = useState("");
   const [sukses, setSukses] = useState(false);
   const history = useHistory();
 
   const onSubmit = () => {
-    console.log("title:", title);
-    console.log("body:", body);
-    console.log("image:", img);
+    postDataBlog(form, history, setSukses);
+    clearData();
+  };
 
-    const data = new FormData();
-    data.append("title", title);
-    data.append("body", body);
-    data.append("image", img);
-
-    axios
-      .post("http://localhost:4000/v1/blog/post", data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        setSukses(true);
-        setTimeout(() => {
-          history.push("/");
-        }, 3000);
-      })
-      .catch((err) => console.log("error", err));
+  const clearData = () => {
+    dispatch(setForm("image", ""));
+    dispatch(setForm("title", ""));
+    dispatch(setForm("body", ""));
+    dispatch(setImgPreview(""));
   };
 
   const onImageUpload = (e) => {
     const file = e.target.files[0];
-    setImg(file);
-    setImgPreview(URL.createObjectURL(file));
+    dispatch(setForm("image", file));
+    dispatch(setImgPreview(URL.createObjectURL(file)));
   };
 
   return (
@@ -51,13 +48,13 @@ const CreateBlog = () => {
       <Input
         label="Judul Post"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => dispatch(setForm("title", e.target.value))}
       />
       <Upload img={imgPreview} onChange={(e) => onImageUpload(e)} />
       <TextArea
         label="Content Blog"
         value={body}
-        onChange={(e) => setBody(e.target.value)}
+        onChange={(e) => dispatch(setForm("body", e.target.value))}
       />
       <div className="btn-container">
         <Button label="Save" onClick={onSubmit} />

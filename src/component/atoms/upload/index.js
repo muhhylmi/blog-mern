@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { LoginBg } from "../../../assets";
 import "./index.scss";
 
